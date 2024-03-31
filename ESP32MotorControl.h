@@ -52,8 +52,10 @@ public:
 	void motorFullReverse(uint8_t motor);
 	void motorReverse(uint8_t motor, uint8_t speed);
 	void motorStop(uint8_t motor);
+	void motorStopBrake(uint8_t motor);
 
 	void motorsStop();
+	void motorsStopBrake();
 
 	void handle();
 

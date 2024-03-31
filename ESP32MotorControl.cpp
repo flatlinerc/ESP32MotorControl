@@ -281,6 +281,33 @@ void ESP32MotorControl::motorStop(uint8_t motor)
 	debug("Motor %u stop", motor);
 }
 
+
+void ESP32MotorControl::motorStopBrake(uint8_t motor)
+{
+	if (!isMotorValid(motor)) {
+		return;
+	}
+
+	// Motor stop
+
+	if (motor == 0) {
+
+		mcpwm_set_signal_high(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A);
+		mcpwm_set_signal_high(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B);
+
+	} else {
+
+		mcpwm_set_signal_high(MCPWM_UNIT_1, MCPWM_TIMER_1, MCPWM_OPR_A);
+		mcpwm_set_signal_high(MCPWM_UNIT_1, MCPWM_TIMER_1, MCPWM_OPR_B);
+
+	}
+
+	mMotorSpeed[motor] = 0; // Save it
+	mMotorForward[motor] = true; // For stop
+
+	debug("Motor %u stop", motor);
+}
+
 // Motors stop
 
 void ESP32MotorControl::motorsStop()
@@ -289,6 +316,15 @@ void ESP32MotorControl::motorsStop()
 	motorStop(1);
 
 	debug("Motors stop");
+}
+// Motors stop brake
+
+void ESP32MotorControl::motorsStopBrake()
+{
+	motorStopBrake(0);
+	motorStopBrake(1);
+
+	debug("Motors stop brake");
 }
 
 // Get motor speed
