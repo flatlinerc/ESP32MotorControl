@@ -1,0 +1,5 @@
+version: "0.1.0"
+description: Arduino ESP32 Motor Control Library
+url: https://github.com/JoaoLopesF/ESP32MotorControl
+dependencies:
+  idf: ">=4.4"
